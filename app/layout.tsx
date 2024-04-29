@@ -3,12 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import StoreHeader from "@/components/storeheader/StoreHeader";
+import CategoryList from "@/components/category/CategoryList";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Data Store",
-  description: "Create and  sell data",
+  title: "Data-Store",
+  description: "Purchase Data Here",
 };
 
 export default function RootLayout({
@@ -21,7 +22,10 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <StoreHeader />
-          <main>{children}</main>
+          <section className="flex">
+            <CategoryList />
+            <main>{children}</main>
+          </section>
         </body>
       </html>
     </ClerkProvider>

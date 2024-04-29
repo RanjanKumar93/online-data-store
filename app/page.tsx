@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/button";
+import CategoryList from "@/components/category/CategoryList";
+// import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
     <div>
-      <Button>Click me</Button>
+      {/* <CategoryList /> */}
     </div>
   );
 }

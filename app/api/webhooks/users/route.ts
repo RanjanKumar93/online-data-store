@@ -1,6 +1,8 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import GlobalApi from "@/utils/GlobalApi";
+import slugify from "slugify";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -49,26 +51,28 @@ export async function POST(req: Request) {
   }
 
   // Get the ID and type
-  const { id, username, image_url, profile_image_url } = evt.data;
+  const { id } = evt.data;
   const eventType = evt.type;
-
+  // console.log(username, image_url, profile_image_url, first_name, id);
   // const { data: {} } = payload;
   // console.log(evt);
 
   switch (eventType) {
     case "user.created":
-      // Code to execute if expression === value1
-      
+      const { username, image_url } = evt.data;
+      const usernameSlug = slugify(username!);
+      GlobalApi.addUser(id!, username!, usernameSlug, image_url).then((res) =>
+        console.log(res)
+      );
+      console.log("user created");
       break;
     case "user.updated":
-      // Code to execute if expression === value2
+      console.log("user updated");
       break;
     case "user.deleted":
-      // Code to execute if expression === value2
+      console.log("user deleted");
       break;
-    // You can have any number of cases
     default:
-    // Code to execute if expression doesn't match any case
   }
 
   // console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
